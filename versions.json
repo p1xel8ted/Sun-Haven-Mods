@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-04-26T03:25:28Z",
-  "generated_by": "update-manifest.yml@93330921",
+  "generated_at": "2026-04-26T05:21:50Z",
+  "generated_by": "update-manifest.yml@2bb5cb1d",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -95,7 +95,7 @@
       "status": "ok"
     },
     {
-      "plugin_guid": "p1xel8ted.sunhaven.notimetoeat",
+      "plugin_guid": "p1xel8ted.sunhaven.notimetostopandeat",
       "nexus_mod_id": 222,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/222",
       "latest_version": "0.1.7",
@@ -105,7 +105,7 @@
       "status": "ok"
     },
     {
-      "plugin_guid": "p1xel8ted.sunhaven.outofseasonseeds",
+      "plugin_guid": "p1xel8ted.sunhaven.seedify",
       "nexus_mod_id": 426,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/426",
       "latest_version": "0.1.2",
