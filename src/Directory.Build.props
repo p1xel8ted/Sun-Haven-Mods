@@ -67,9 +67,6 @@
         <Optimize>true</Optimize>
     </PropertyGroup>
 
-    <!-- NexusMods Upload Target -->
-    <Import Project="upload.target" Condition="Exists('upload.target')" />
-
     <!-- Game/Unity Assemblies (wildcard from stripped libs) -->
     <ItemGroup>
         <Reference Include="$(StrippedLibs)\*.dll">
