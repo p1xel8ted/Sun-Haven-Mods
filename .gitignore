@@ -1,0 +1,25 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.DotSettings.user
+.vs/
+.idea/
+
+# Per-machine config + Nexus API key — never commit
+**/Environment.props
+Directory.Build.props.user
+
+# Game DLLs (large, per-machine — populated from your local install)
+libs/
+
+# Release artifacts
+AAA_Release*/
+
+# Personal dev aids / AI tooling
+CLAUDE.md
+.claude/
+.serena/
+work_summaries/
+mod-audit.md
