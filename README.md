@@ -66,7 +66,6 @@ Launch the game, then press **F1** to open BepInEx Configuration Manager. Every 
 ## Support & contact
 
 - **Ko-fi** — [ko-fi.com/p1xel8ted](https://ko-fi.com/p1xel8ted). Development, testing, and user support take real time; any support is greatly appreciated. If you'd rather not donate, clicking the Endorse button on the Nexus pages also helps.
-- **Discord** — [discord.gg/Dy5ApMYYY8](https://discord.gg/Dy5ApMYYY8). Faster than Nexus comments for back-and-forth.
 - **Bug reports / feature requests** — comment on the specific mod's Nexus page. GitHub issues are disabled; Nexus is the single channel.
 - **Crash on startup?** Check `BepInEx\LogOutput.log` for the most recent stack trace, and note which mods you have installed.
 
