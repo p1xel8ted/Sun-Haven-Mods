@@ -2,6 +2,8 @@
 
 ## 0.1.4
 
+- Fixed chests becoming stuck on "Someone else is using this chest" in singleplayer after closing them
+- Fixed pressing Escape opening the settings menu instead of closing an open chest, and the chest's X button no longer working afterwards
 - Fixed controller support for the jewelry pouch — picking up, placing, and navigating items now works correctly
 - Fixed the toggle arrow becoming unresponsive after pressing it with a controller
 

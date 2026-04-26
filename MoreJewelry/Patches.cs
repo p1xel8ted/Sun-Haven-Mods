@@ -43,6 +43,26 @@ public static class Patches
         }
     }
 
+    // Items is extended to 72 above so stat patches (GetStat/EquipNonVisualArmor) can see
+    // equipped jewelry before the player ever opens their inventory. _slots is only extended
+    // to 72 inside OpenMajorPanel below. If a chest is closed before then, Chest.SaveInventory
+    // → LoadPlayerInventory → LoadInventory iterates Items.Count keys and calls SetupItemIcon
+    // for slots 66-71, which don't exist in _slots yet. The original IndexOutOfRangeException
+    // aborted SaveInventory before data.inUse = false, leaving the chest permanently locked
+    // and the UIHandler in a broken state. Skip out-of-range slots; OpenMajorPanel will
+    // re-call SetupItemIcon for them once the UI exists.
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(Inventory), nameof(Inventory.SetupItemIcon))]
+    private static bool Inventory_SetupItemIcon(Inventory __instance, int slot, ref ItemIcon __result)
+    {
+        if (__instance._slots == null || slot < 0 || slot >= __instance._slots.Length || __instance._slots[slot] == null)
+        {
+            __result = null;
+            return false;
+        }
+        return true;
+    }
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(PlayerInventory), nameof(PlayerInventory.OpenMajorPanel))]
     private static void PlayerInventory_Initialize(PlayerInventory __instance, int panelIndex)
@@ -171,156 +191,25 @@ public static class Patches
         if (!ShouldUseSelectedObjectForControllerPress(selected)) return;
 
         var buttonData = data.buttonData;
-        var originalTarget = buttonData.pointerCurrentRaycast.gameObject;
-        if (originalTarget != selected)
-        {
-            Plugin.LOG.LogInfo($"[MoreJewelry] Controller press remap: selected='{selected.name}', raycast='{originalTarget?.name ?? "null"}'");
-        }
-        else
-        {
-            Plugin.LOG.LogInfo($"[MoreJewelry] Controller press on selected='{selected.name}'");
-        }
-
         var raycast = buttonData.pointerCurrentRaycast;
         raycast.gameObject = selected;
         buttonData.pointerCurrentRaycast = raycast;
     }
 
-    // === Debug logging for ALL Slot interaction methods on custom slots ===
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(Slot), nameof(Slot.OnPointerDown))]
-    private static void Slot_OnPointerDown(Slot __instance, PointerEventData eventData)
-    {
-        var tag = GearSlots.Contains(__instance) ? "CUSTOM" : "NATIVE";
-        Plugin.LOG.LogInfo($"[Slot:{tag}] OnPointerDown: '{__instance.name}' slot#{__instance.slotNumber} | selected='{EventSystem.current?.currentSelectedGameObject?.name ?? "null"}' | currentItemIcon={ItemIconName()} | pointer={eventData?.pointerId}");
-    }
-
+    // Forward controller Submit from a Slot to its ItemIcon when the ItemIcon was bypassed
+    // by navigation. Without this, pressing Submit on a slot containing an item does nothing
+    // because the game expects the ItemIcon to be the focused selectable.
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Slot), nameof(Slot.OnSubmit), new[] { typeof(BaseEventData) })]
     private static void Slot_OnSubmit(Slot __instance, BaseEventData eventData)
     {
-        var tag = GearSlots.Contains(__instance) ? "CUSTOM" : "NATIVE";
-        var itemId = __instance.inventory?.Items != null && __instance.slotNumber < __instance.inventory.Items.Count
-            ? __instance.inventory.Items[__instance.slotNumber].id : -1;
-        Plugin.LOG.LogInfo($"[Slot:{tag}] OnSubmit: '{__instance.name}' slot#{__instance.slotNumber} | currentItemIcon={ItemIconName()} | slotItemId={itemId} | interactable={__instance.GetComponent<Selectable>()?.interactable}");
-
-        // When controller Submit reaches the Slot but bypasses the ItemIcon (no CurrentItemIcon),
-        // and the slot has an item, forward to the ItemIcon so it can pick up the item.
-        // This applies to all slots — native slots have the same issue when navigating from the custom panel.
         if (!MouseVisualManager.UsingController) return;
         if (Inventory.CurrentItemIcon != null) return;
 
         var itemIcon = __instance.GetComponentInChildren<ItemIcon>();
         if (itemIcon == null || itemIcon.item == null || itemIcon.item.ID() == 0) return;
 
-        Plugin.LOG.LogInfo($"[Slot:CUSTOM] Forwarding Submit to ItemIcon '{itemIcon.name}' for pickup");
         itemIcon.ClickIcon(UIMoveType.Submit);
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(Slot), nameof(Slot.OnSelect))]
-    private static void Slot_OnSelect(Slot __instance)
-    {
-        var tag = GearSlots.Contains(__instance) ? "CUSTOM" : "NATIVE";
-        Plugin.LOG.LogInfo($"[Slot:{tag}] OnSelect: '{__instance.name}' slot#{__instance.slotNumber}");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(Slot), nameof(Slot.OnDeselect))]
-    private static void Slot_OnDeselect(Slot __instance)
-    {
-        var tag = GearSlots.Contains(__instance) ? "CUSTOM" : "NATIVE";
-        Plugin.LOG.LogInfo($"[Slot:{tag}] OnDeselect: '{__instance.name}' slot#{__instance.slotNumber}");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(Slot), nameof(Slot.ValidateItem), new[] { typeof(int) })]
-    private static void Slot_ValidateItem(Slot __instance, int id)
-    {
-        var tag = GearSlots.Contains(__instance) ? "CUSTOM" : "NATIVE";
-        Plugin.LOG.LogInfo($"[Slot:{tag}] ValidateItem: '{__instance.name}' slot#{__instance.slotNumber} | itemId={id} | requireArmorType={__instance.requireArmorType} | acceptableType={__instance.acceptableArmorType}");
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(Slot), nameof(Slot.ValidateItem), new[] { typeof(int) })]
-    private static void Slot_ValidateItem_Post(Slot __instance, int id, bool __result)
-    {
-        var tag = GearSlots.Contains(__instance) ? "CUSTOM" : "NATIVE";
-        Plugin.LOG.LogInfo($"[Slot:{tag}] ValidateItem result: '{__instance.name}' | itemId={id} | result={__result}");
-    }
-
-    // === ItemIcon logging to track pickup/drop state ===
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(ItemIcon), nameof(ItemIcon.PickupIcon))]
-    private static void ItemIcon_PickupIcon(ItemIcon __instance)
-    {
-        Plugin.LOG.LogInfo($"[ItemIcon] PickupIcon: '{__instance.name}' | slotIndex={__instance.slotIndex} | itemId={__instance.item?.ID()} | CurrentItemIcon={ItemIconName()}");
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(ItemIcon), nameof(ItemIcon.DropIcon))]
-    private static void ItemIcon_DropIcon(ItemIcon __instance)
-    {
-        Plugin.LOG.LogInfo($"[ItemIcon] DropIcon: '{__instance.name}' | slotIndex={__instance.slotIndex} | CurrentItemIcon={ItemIconName()}");
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(ItemIcon), nameof(ItemIcon.ClickIcon))]
-    private static void ItemIcon_ClickIcon(ItemIcon __instance, UIMoveType uiMoveType)
-    {
-        Plugin.LOG.LogInfo($"[ItemIcon] ClickIcon: '{__instance.name}' | slotIndex={__instance.slotIndex} | moveType={uiMoveType} | CurrentItemIcon={ItemIconName()}");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(ItemIcon), nameof(ItemIcon.OnSubmit))]
-    private static void ItemIcon_OnSubmit(ItemIcon __instance)
-    {
-        Plugin.LOG.LogInfo($"[ItemIcon] OnSubmit: '{__instance.name}' | slotIndex={__instance.slotIndex} | itemId={__instance.item?.ID()} | CurrentItemIcon={ItemIconName()}");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(ItemIcon), nameof(ItemIcon.OnPointerDown))]
-    private static void ItemIcon_OnPointerDown(ItemIcon __instance)
-    {
-        Plugin.LOG.LogInfo($"[ItemIcon] OnPointerDown: '{__instance.name}' | slotIndex={__instance.slotIndex} | CurrentItemIcon={ItemIconName()}");
-    }
-
-    // === PSS.UI.Selectable logging on custom slots ===
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(PSS.UI.Selectable), nameof(PSS.UI.Selectable.Select))]
-    private static void PSSSelectable_Select(PSS.UI.Selectable __instance)
-    {
-        Plugin.LOG.LogInfo($"[PSS.Selectable] Select: '{__instance.name}'");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(PSS.UI.Selectable), nameof(PSS.UI.Selectable.Deselect))]
-    private static void PSSSelectable_Deselect(PSS.UI.Selectable __instance)
-    {
-        Plugin.LOG.LogInfo($"[PSS.Selectable] Deselect: '{__instance.name}'");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(PSS.UI.Selectable), nameof(PSS.UI.Selectable.OnPointerEnter))]
-    private static void PSSSelectable_OnPointerEnter(PSS.UI.Selectable __instance)
-    {
-        Plugin.LOG.LogInfo($"[PSS.Selectable] OnPointerEnter: '{__instance.name}' | selected='{EventSystem.current?.currentSelectedGameObject?.name ?? "null"}'");
-    }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(PSS.UI.Selectable), nameof(PSS.UI.Selectable.OnPointerExit))]
-    private static void PSSSelectable_OnPointerExit(PSS.UI.Selectable __instance)
-    {
-        Plugin.LOG.LogInfo($"[PSS.Selectable] OnPointerExit: '{__instance.name}'");
-    }
-
-    private static string ItemIconName()
-    {
-        var icon = Inventory.CurrentItemIcon;
-        return icon != null ? $"'{icon.name}' (slot#{icon.slotIndex}, item={icon.item?.ID()})" : "null";
     }
 
     private static bool ShouldUseSelectedObjectForControllerPress(GameObject selected)
