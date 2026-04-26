@@ -1,10 +1,10 @@
 # Changelog
 
-## 0.2.2
+## 0.2.2 | 05 April 2026
 
 - Fixed a crash that could occur on the main menu when certain settings were changed during startup
 
-## 0.2.1
+## 0.2.1 | 01 April 2026
 
 - Fixed a black screen that could occur during game startup
 - Fixed a crash that could happen on the main menu
@@ -14,64 +14,64 @@
 - Fixed a rare crash when viewing DLC content in the main menu
 - Added a toggle to enable/disable the health and mana regeneration feature
 
-## 0.2.0
+## 0.2.0 | 22 June 2025
 
 - Minor update for 2.5.1b (no functional changes).
 
-## 0.1.9
+## 0.1.9 | 18 April 2025
 
 - Fixed Quit to Desktop button not functioning
 - Minor changes to mitigate any future dev changes around gameobject pathing
 
-## 0.1.8
+## 0.1.8 | 17 April 2025
 
 - Option to skip straight to main menu.
 - Option to add a Continue button (won't run with Dinos version installed)
 - Mute in background option
 
-## 0.1.7
+## 0.1.7 | 16 March 2025
 
 - Update for 2.0
 - Fixed various options not working due to internal path changes the devs made
 
-## 0.1.6
+## 0.1.6 | 04 August 2024
 
 - Changed menu anchoring so it resizes from the top when you enable/disable menu buttons.
 
-## 0.1.5
+## 0.1.5 | 04 August 2024
 
 - Compatibility update for when ContinueButton is installed (fixes the menu border, border dynamically adjusts based on Easy Livings settings).
 
-## 0.1.4
+## 0.1.4 | 03 August 2024
 
 - Modified the new DLC ad window so that it greys out owned DLC. If all the DLC is owned, it will be hidden, regardless of settings.
 
-## 0.1.3
+## 0.1.3 | 03 August 2024
 
 - Update for the new main menu introduced in 1.5. Check your settings via F1 as there is changed/new configs.
 
-## 0.1.2
+## 0.1.2 | 29 June 2024
 
 - KeepAlive is now a hard dependency, meaning the mod will not load without it. The BepInEx log window will notify you accordingly. Do not raise a bug report.
 
-## 0.1.1
+## 0.1.1 | 16 June 2024
 
 - Updated for 1.4+
 
-## 0.1.0
+## 0.1.0 | 15 January 2024
 
 - Added option to disable the Resolution change that happens - Forces a resolution update on scene changes. This is mainly to fix Steams FPS counter being huge on my setup. It will use the Main display, so if you play on your secondary, disable this.
 
-## 0.0.9
+## 0.0.9 | 07 January 2024
 
 - Added option to place the player further away from the mailbox when the game first loads.
 
-## 0.0.8
+## 0.0.8 | 29 October 2023
 
 - Added option to increase watering can fill range (from 3 to 10).
 - Added option to lock cursor to center of screen when no UI is open. This is of no use to you if play with a mouse and keyboard, so leave it off. Experimental.
 
-## 0.0.7
+## 0.0.7 | 28 October 2023
 
 - Added option to make the "Has Materials" selected by default when opening a crafting table
 

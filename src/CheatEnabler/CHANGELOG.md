@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.7
+## 0.3.7 | 01 April 2026
 
 - Updated for game version 3.0.2b
 

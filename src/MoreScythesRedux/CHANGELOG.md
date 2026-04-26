@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.9
+## 0.1.9 | 12 April 2026
 
 - Fixed custom scythes failing to load in the crafting UI on recent game versions (Addressables "No Location found" errors); icons and recipes now display correctly again
 

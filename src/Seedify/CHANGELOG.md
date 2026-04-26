@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.2
+## 0.1.2 | 01 April 2026
 
 - Fixed a performance issue that could cause gradual slowdown during long play sessions
 

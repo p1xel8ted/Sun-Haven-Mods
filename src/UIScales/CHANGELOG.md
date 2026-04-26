@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.8
+## 0.2.8 | 01 April 2026
 
 - Fixed the day speed slider showing the wrong position when custom zoom is enabled
 - Fixed a potential crash when opening the settings menu

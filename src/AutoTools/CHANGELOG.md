@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0
+## 0.2.0 | 01 April 2026
 
 - New cursor-based detection mode (default) — tools now switch based on what you're aiming at instead of what you walk near
 - Works with both mouse and controller (right stick aiming)
