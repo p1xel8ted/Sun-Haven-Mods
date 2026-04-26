@@ -6,7 +6,7 @@ namespace NoTimeToStopAndEat;
 [BepInDependency("p1xel8ted.sunhaven.keepalive")]
 public class Plugin : BaseUnityPlugin
 {
-    private const string PluginGuid = "p1xel8ted.sunhaven.notimetoeat";
+    private const string PluginGuid = "p1xel8ted.sunhaven.notimetostopandeat";
     private const string PluginName = "No Time To Stop & Eat!";
     private const string PluginVersion = "0.1.7";
     
