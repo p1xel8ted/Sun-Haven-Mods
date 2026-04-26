@@ -9,19 +9,19 @@
   
 <Target Name="ZipOutputPath" AfterTargets="Build">
         <PropertyGroup>
-            <TempDir>$(MSBuildProjectDirectory)\temp</TempDir>
-              <PluginDir>$(MSBuildProjectDirectory)\temp</PluginDir>
+            <ZipStaging>$(MSBuildProjectDirectory)\temp</ZipStaging>
+            <ModStaging>$(ZipStaging)\$(MSBuildProjectName)</ModStaging>
         </PropertyGroup>
-        <MakeDir Directories="$(TempDir)" />
+        <MakeDir Directories="$(ModStaging)" />
         <MakeDir Directories="$(MSBuildProjectDirectory)\..\AAA_Releases" />
-        <Exec Command="xcopy /V &quot;$(OutputPath)&quot; &quot;$(TempDir)&quot; /E /I /Y" />
-        <Exec Command="del &quot;$(TempDir)\*.zip&quot; &quot;$(TempDir)\*.json&quot; &quot;$(TempDir)\*.pdb&quot;" />
+        <Exec Command="xcopy /V &quot;$(OutputPath)&quot; &quot;$(ModStaging)&quot; /E /I /Y" />
+        <Exec Command="del &quot;$(ModStaging)\*.zip&quot; &quot;$(ModStaging)\*.json&quot; &quot;$(ModStaging)\*.pdb&quot;" />
         <Copy Condition="Exists('$(MSBuildProjectDirectory)\CHANGELOG.md')"
               SourceFiles="$(MSBuildProjectDirectory)\CHANGELOG.md"
-              DestinationFolder="$(TempDir)" />
+              DestinationFolder="$(ModStaging)" />
         <ZipDirectory Condition="'$(Configuration)'=='Release' OR '$(Configuration)'=='Release-Upload'" Overwrite="true"
-                SourceDirectory="temp"
+                SourceDirectory="$(ZipStaging)"
                 DestinationFile="$(MSBuildProjectDirectory)\..\AAA_Releases\$(MSBuildProjectName)_v$(Version)_BepInEx.zip" />
-        <RemoveDir Directories="$(MSBuildProjectDirectory)\temp" />
+        <RemoveDir Directories="$(ZipStaging)" />
     </Target>
 </Project>
