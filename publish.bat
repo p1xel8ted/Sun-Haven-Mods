@@ -8,11 +8,12 @@ echo ========================================
 echo.
 
 set "SLNDIR=%~dp0"
+set "SRCDIR=%SLNDIR%src\"
 set "FAILED="
 set "SUCCESS=0"
 
 REM Read API key from git-ignored Environment.props
-set "ENVPROPS=%SLNDIR%Environment.props"
+set "ENVPROPS=%SRCDIR%Environment.props"
 if not exist "%ENVPROPS%" (
     echo ERROR: %ENVPROPS% not found.
     echo Create it with ^<NexusModsApiKey^>...^</NexusModsApiKey^> before publishing.
@@ -38,7 +39,7 @@ if "%~1"=="" (
 
     REM Auto-discover mods by scanning csproj files for NexusGroupId
     set "DISCOVERED="
-    for /d %%d in ("%SLNDIR%*") do (
+    for /d %%d in ("%SRCDIR%*") do (
         if exist "%%d\%%~nxd.csproj" (
             findstr /r "NexusGroupId" "%%d\%%~nxd.csproj" >nul 2>&1
             if not errorlevel 1 (
@@ -47,7 +48,7 @@ if "%~1"=="" (
         )
     )
     if "!DISCOVERED!"=="" (
-        echo No mods with NexusGroupId found in %SLNDIR%
+        echo No mods with NexusGroupId found in %SRCDIR%
         pause
         exit /b 0
     )
@@ -80,7 +81,7 @@ exit /b 0
 
 :buildmod
 set "MOD=%~1"
-set "CSPROJ=%SLNDIR%%MOD%\%MOD%.csproj"
+set "CSPROJ=%SRCDIR%%MOD%\%MOD%.csproj"
 
 if not exist "%CSPROJ%" (
     echo  ERROR: %CSPROJ% not found
@@ -113,7 +114,7 @@ set "VERSION=!VERLINE:*<Version>=!"
 set "VERSION=!VERSION:</Version>=!"
 set "VERSION=!VERSION: =!"
 
-set "ZIPFILE=%SLNDIR%AAA_Releases\%MOD%_v!VERSION!_BepInEx.zip"
+set "ZIPFILE=%SRCDIR%AAA_Releases\%MOD%_v!VERSION!_BepInEx.zip"
 
 if not exist "!ZIPFILE!" (
     echo  ERROR: Zip not found: !ZIPFILE!

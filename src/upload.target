@@ -11,7 +11,7 @@
     <PropertyGroup>
       <ReleasesDir>$(MSBuildProjectDirectory)\..\AAA_Releases</ReleasesDir>
       <ZipFile>$(ReleasesDir)\$(MSBuildProjectName)_v$(Version)_BepInEx.zip</ZipFile>
-      <UploadScript>$(MSBuildProjectDirectory)\..\nexus-upload.ps1</UploadScript>
+      <UploadScript>$(MSBuildProjectDirectory)\..\..\nexus-upload.ps1</UploadScript>
     </PropertyGroup>
 
     <Error Condition="!Exists('$(ZipFile)')" Text="Release zip not found: $(ZipFile)" />
