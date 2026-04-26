@@ -11,13 +11,49 @@ set "SLNDIR=%~dp0"
 set "FAILED="
 set "SUCCESS=0"
 
+REM Read API key from git-ignored Environment.props
+set "ENVPROPS=%SLNDIR%Environment.props"
+if not exist "%ENVPROPS%" (
+    echo ERROR: %ENVPROPS% not found.
+    echo Create it with ^<NexusModsApiKey^>...^</NexusModsApiKey^> before publishing.
+    pause
+    exit /b 1
+)
+for /f "tokens=*" %%k in ('findstr /r "NexusModsApiKey" "%ENVPROPS%"') do set "KEYLINE=%%k"
+set "APIKEY=!KEYLINE:*<NexusModsApiKey>=!"
+set "APIKEY=!APIKEY:</NexusModsApiKey>=!"
+set "APIKEY=!APIKEY: =!"
+if "!APIKEY!"=="" (
+    echo ERROR: NexusModsApiKey not found in %ENVPROPS%
+    pause
+    exit /b 1
+)
+
 if "%~1"=="" (
     echo Usage:
-    echo   publish.bat                        - Upload ALL mods
+    echo   publish.bat                        - Upload ALL mods with NexusGroupId
     echo   publish.bat Seedify                - Upload single mod
     echo   publish.bat Seedify EasyLiving     - Upload multiple mods
     echo.
-    set /p "CONFIRM=Upload ALL mods? (y/n): "
+
+    REM Auto-discover mods by scanning csproj files for NexusGroupId
+    set "DISCOVERED="
+    for /d %%d in ("%SLNDIR%*") do (
+        if exist "%%d\%%~nxd.csproj" (
+            findstr /r "NexusGroupId" "%%d\%%~nxd.csproj" >nul 2>&1
+            if not errorlevel 1 (
+                set "DISCOVERED=!DISCOVERED! %%~nxd"
+            )
+        )
+    )
+    if "!DISCOVERED!"=="" (
+        echo No mods with NexusGroupId found in %SLNDIR%
+        pause
+        exit /b 0
+    )
+    echo Discovered mods:!DISCOVERED!
+    echo.
+    set /p "CONFIRM=Upload all discovered mods? (y/n): "
     if /i not "!CONFIRM!"=="y" (
         echo Cancelled.
         pause
@@ -25,9 +61,7 @@ if "%~1"=="" (
     )
     echo.
 
-    for %%m in (KeepAlive UIScales CheatEnabler EasyLiving AutoTools NoTimeForFishing NoTimeToStopAndEat MoreScythesRedux MuseumSellPriceRedux MoreJewelry CharacterEditRedux Seedify MoreTheMerrier) do (
-        call :buildmod %%m
-    )
+    for %%m in (!DISCOVERED!) do call :buildmod %%m
 ) else (
     for %%m in (%*) do (
         call :buildmod %%m
@@ -91,7 +125,7 @@ echo.
 echo  Uploading %MOD% v!VERSION! (group !GROUPID!)...
 echo.
 
-pwsh -NoProfile -ExecutionPolicy Bypass -File "%SLNDIR%nexus-upload.ps1" -ApiKey "OU9lYTM3cmVZM2c4aURlcHhldDRMZSs0NElMZlVTOTZaMHpyZlFVQWU3R2ZwTjgxUnpMcWtGQkxMSXV5aldYRy0tVUxvVXBwS0Z3dURxNGR0Y1ZCMGN5UT09--07e79ee1a9d300ed7473c300784ea7384fc8459e" -GroupId "!GROUPID!" -ZipFile "!ZIPFILE!" -ModName "%MOD%" -Version "!VERSION!"
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%SLNDIR%nexus-upload.ps1" -ApiKey "!APIKEY!" -GroupId "!GROUPID!" -ZipFile "!ZIPFILE!" -ModName "%MOD%" -Version "!VERSION!"
 
 if !errorlevel! neq 0 (
     set "FAILED=!FAILED! %MOD%"
