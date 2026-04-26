@@ -1,0 +1,1 @@
+Adds six extra jewelry slots — 2 rings, 2 keepsakes, 2 amulets — with full stat support, behind a togglable pouch panel in your inventory. Smart equip checks every slot before swapping; collapsed pouches still grant bonuses; full controller navigation. Optional storage-only mode if you don't want extra stats.

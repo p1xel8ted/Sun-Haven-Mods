@@ -1,0 +1,1 @@
+Eat without stopping. Food no longer locks the eating animation, so a snack mid-fight or mid-run doesn't break your stride. Health, mana, and food-buff effects apply instantly. Optional toggle to hide the food-item visual in your hand if you'd rather not see it.

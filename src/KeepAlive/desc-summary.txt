@@ -1,0 +1,1 @@
+Stops Sun Haven from tearing down BepInEx mods when you return to the main menu, so you don't have to restart between play sessions. A hard dependency for most mods on my profile. Modders can also add their own GameObjects to the no-kill list via a one-line API call.

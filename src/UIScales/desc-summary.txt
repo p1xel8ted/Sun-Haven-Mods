@@ -1,0 +1,1 @@
+Independent scale for nearly every UI surface — main HUD, action bar, quest tracker, backpack, chat, tooltips, shop, dialogue portraits — plus extended zoom from 0.5× to 10× (vanilla caps at 2×–4×). Bindable zoom keys and an optional toggle to mute notification chimes.

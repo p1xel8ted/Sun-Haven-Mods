@@ -1,0 +1,1 @@
+Skip the fishing minigame entirely with optional auto-reel, or just tune it down — minigame speed, win-area size, spawn rate, fish population, rare-fish odds, museum-item odds, bobber radius, swim speed, cast distance, Bubble Net capacity, and the catch popup. One-click Recommended Settings baseline.

@@ -1,0 +1,1 @@
+Re-open the character creator on any save from the load-game screen. Fix the haircut, swap the name, redo the eye colour — without starting over. Auto-backs up your save before each edit, and adds a shortcut to open the Sun Haven save folder for manual restores.

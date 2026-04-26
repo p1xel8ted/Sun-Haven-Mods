@@ -1,0 +1,1 @@
+A toggleable grab-bag of menu, HUD, and gameplay tweaks: quick-save & auto-load, Continue button, hidden DLC ads & dev logos, taller quest tracker, move-speed multiplier, optional regen, mute-when-unfocused, quit-to-desktop button, and more. Every option is independent — pick what you want.

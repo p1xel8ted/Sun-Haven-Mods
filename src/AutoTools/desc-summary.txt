@@ -1,0 +1,1 @@
+Automatically swaps to the right tool based on what your cursor (or right stick) is aimed at — full cans before empty, highest tier first, hoes off when enemies are nearby. Per-tool toggles, optional skip-on-farm, configurable swap cooldown, and a controller-friendly proximity fallback.

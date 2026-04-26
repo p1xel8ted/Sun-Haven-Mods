@@ -1,0 +1,1 @@
+Makes museum-only items worth selling instead of nearly worthless. Configurable multiplier paid out in the right currency for each item's category (gold, orbs, tickets). Adjust the multiplier from the in-game F1 menu and hit Apply Changes — prices update live, no restart needed.

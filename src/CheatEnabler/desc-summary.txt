@@ -1,0 +1,1 @@
+Unlocks the built-in developer console with no gating, plus helper commands like /finditemid, /printallnpcs, /printallscenes, and an inline /man for command help. Type / in chat to discover everything available. Localised manuals where game translations exist. DLC items are intentionally excluded.

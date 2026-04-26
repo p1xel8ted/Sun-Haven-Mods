@@ -1,0 +1,1 @@
+Plant any seed in any season on any farm type, buy out-of-season seeds from the farming shop, and make every crop regrowable instead of one-and-done. Each option is its own toggle — pick what you want and leave the rest off. Heads-up: turning the season toggle off mid-save kills out-of-season crops.

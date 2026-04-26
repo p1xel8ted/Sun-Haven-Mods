@@ -1,0 +1,1 @@
+Adds four new craftable scythes — Adamant, Mithril, Sunite (anvil), and top-tier Glorite (Monster Anvil). Damage and attack speed both scale per tier, so the upgrade actually feels meaningful in combat as well as harvest. Skill-gated like the vanilla weapons. Continuation of Brqdford's More Scythes.

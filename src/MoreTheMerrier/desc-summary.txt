@@ -1,0 +1,1 @@
+Raises the multiplayer lobby cap from the vanilla 8 to 100. The host UI slider just goes higher — everything else about hosting and joining stays the same. Last-used count is remembered between sessions. Host-side: the host needs the mod installed; joining clients need whatever else the host has.
