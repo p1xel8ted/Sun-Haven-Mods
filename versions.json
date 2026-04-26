@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "generated_at": "2026-04-26T03:25:28Z",
+  "generated_by": "update-manifest.yml@93330921",
+  "game_domain": "sunhaven",
+  "mods": [
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.autotools",
+      "nexus_mod_id": 199,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/199",
+      "latest_version": "0.2.0",
+      "latest_file_id": 1550,
+      "latest_file_name": "Auto Tools",
+      "uploaded_unix": 1775015573,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.charactereditredux",
+      "nexus_mod_id": 418,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/418",
+      "latest_version": "0.1.2",
+      "latest_file_id": 1544,
+      "latest_file_name": "Character Edit Redux",
+      "uploaded_unix": 1775015303,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.cheatenabler",
+      "nexus_mod_id": 8,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/8",
+      "latest_version": "0.3.7",
+      "latest_file_id": 1548,
+      "latest_file_name": "Cheat Enabler",
+      "uploaded_unix": 1775015518,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.easyliving",
+      "nexus_mod_id": 37,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/37",
+      "latest_version": "0.2.2",
+      "latest_file_id": 1564,
+      "latest_file_name": "EasyLiving",
+      "uploaded_unix": 1775361991,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.keepalive",
+      "nexus_mod_id": 31,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/31",
+      "latest_version": "0.1.2",
+      "latest_file_id": 1546,
+      "latest_file_name": "Keep Alive",
+      "uploaded_unix": 1775015464,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.morejewelry",
+      "nexus_mod_id": 224,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/224",
+      "latest_version": "0.1.4",
+      "latest_file_id": 1565,
+      "latest_file_name": "MoreJewelry",
+      "uploaded_unix": 1775362074,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.morescythesredux",
+      "nexus_mod_id": 205,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/205",
+      "latest_version": "0.1.9",
+      "latest_file_id": 1569,
+      "latest_file_name": "More Scythes Redux",
+      "uploaded_unix": 1775959334,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.museumsellpriceredux",
+      "nexus_mod_id": 207,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/207",
+      "latest_version": "0.1.7",
+      "latest_file_id": 1555,
+      "latest_file_name": "Museum Sell Price Redux",
+      "uploaded_unix": 1775026119,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.notimeforfishing",
+      "nexus_mod_id": 27,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/27",
+      "latest_version": "0.1.2",
+      "latest_file_id": 1557,
+      "latest_file_name": "No Time For Fishing",
+      "uploaded_unix": 1775030435,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.notimetoeat",
+      "nexus_mod_id": 222,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/222",
+      "latest_version": "0.1.7",
+      "latest_file_id": 1552,
+      "latest_file_name": "No Time to Stop and Eat",
+      "uploaded_unix": 1775015628,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.outofseasonseeds",
+      "nexus_mod_id": 426,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/426",
+      "latest_version": "0.1.2",
+      "latest_file_id": 1543,
+      "latest_file_name": "Seedify",
+      "uploaded_unix": 1775011817,
+      "status": "ok"
+    },
+    {
+      "plugin_guid": "p1xel8ted.sunhaven.uiscales",
+      "nexus_mod_id": 7,
+      "nexus_url": "https://www.nexusmods.com/sunhaven/mods/7",
+      "latest_version": "0.2.8",
+      "latest_file_id": 1547,
+      "latest_file_name": "UIScales",
+      "uploaded_unix": 1775015489,
+      "status": "ok"
+    }
+  ]
+}
