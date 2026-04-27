@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-04-26T05:21:50Z",
-  "generated_by": "update-manifest.yml@2bb5cb1d",
+  "generated_at": "2026-04-27T05:28:59Z",
+  "generated_by": "update-manifest.yml@60c95f4f",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -58,10 +58,10 @@
       "plugin_guid": "p1xel8ted.sunhaven.morejewelry",
       "nexus_mod_id": 224,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/224",
-      "latest_version": "0.1.4",
-      "latest_file_id": 1565,
-      "latest_file_name": "MoreJewelry",
-      "uploaded_unix": 1775362074,
+      "latest_version": "0.1.5",
+      "latest_file_id": 1591,
+      "latest_file_name": "More Jewelry",
+      "uploaded_unix": 1777266437,
       "status": "ok"
     },
     {
