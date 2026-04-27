@@ -62,11 +62,6 @@
         <PackageReference Include="Resource.Embedder" Version="2.3.1" />
     </ItemGroup>
 
-    <!-- Release-Upload Configuration (inherits Release settings) -->
-    <PropertyGroup Condition="'$(Configuration)'=='Release-Upload'">
-        <Optimize>true</Optimize>
-    </PropertyGroup>
-
     <!-- Game/Unity Assemblies (wildcard from stripped libs) -->
     <ItemGroup>
         <Reference Include="$(StrippedLibs)\*.dll">
