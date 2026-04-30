@@ -1,18 +1,18 @@
 {
   "schema": 1,
-  "generated_at": "2026-04-29T16:53:32Z",
-  "generated_by": "update-manifest.yml@ebc1d760",
+  "generated_at": "2026-04-30T16:50:28Z",
+  "generated_by": "update-manifest.yml@c5425d7a",
   "game_domain": "sunhaven",
   "mods": [
     {
       "plugin_guid": "p1xel8ted.sunhaven.autotools",
       "nexus_mod_id": 199,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/199",
-      "latest_version": "0.2.0",
-      "latest_file_id": 1550,
-      "latest_file_name": "Auto Tools",
-      "uploaded_unix": 1775015573,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.charactereditredux",
@@ -28,11 +28,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.cheatenabler",
       "nexus_mod_id": 8,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/8",
-      "latest_version": "0.3.7",
-      "latest_file_id": 1548,
-      "latest_file_name": "Cheat Enabler",
-      "uploaded_unix": 1775015518,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.easyliving",
@@ -48,11 +48,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.keepalive",
       "nexus_mod_id": 31,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/31",
-      "latest_version": "0.1.2",
-      "latest_file_id": 1546,
-      "latest_file_name": "Keep Alive",
-      "uploaded_unix": 1775015464,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.morejewelry",
