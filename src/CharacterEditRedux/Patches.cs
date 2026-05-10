@@ -157,10 +157,41 @@ public static class Patches
         MainMenuController.backCharacterButton.onClick.RemoveListener(SetupButtons);
     }
 
+    private static void RestoreBirthday()
+    {
+        var seasonName = CurrentCharacterData.BirthdaySeason;
+        var day = CurrentCharacterData.BirthdayDay;
+
+        if (!Enum.TryParse<Season>(seasonName, out var season))
+        {
+            Plugin.Log.LogWarning($"Could not parse birthday season '{seasonName}', leaving picker unset");
+            return;
+        }
+
+        // Mirrors what the game does once a player picks a birthday during creation:
+        // updates lastSelectedMonth/Day, refreshes the icon, and re-stamps the
+        // CurrentCharacter properties. inSalon is false here because EnableMenu
+        // already triggered NewCharacterCreator.OnEnable.
+        NewCharacterCreator.SetBirthdayMonthDay(season, day);
+        NewCharacterCreator.SetBirthdayConfirmed();
+
+        // Pre-seed the picker popup so re-opening it shows the current birthday
+        // instead of stale state from a previous session. The picker stores the
+        // day zero-indexed; SetBirthday writes (birthDay + 1) on close.
+        var birthdayUI = PlayerBirthdayUI.Instance;
+        if (birthdayUI)
+        {
+            birthdayUI.birthMonth = seasonName;
+            birthdayUI.birthDay = day - 1;
+        }
+    }
+
     private static void SetupCharacter()
     {
         _lastName = CurrentCharacterData.characterName;
         NewCharacterCreator.nameInputField.text = _lastName;
+
+        RestoreBirthday();
 
         if (!CurrentCharacterData.male)
         {
