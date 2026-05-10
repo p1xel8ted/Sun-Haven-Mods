@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-05-10T05:31:12Z",
-  "generated_by": "update-manifest.yml@714629c8",
+  "generated_at": "2026-05-10T16:36:45Z",
+  "generated_by": "update-manifest.yml@f3395f22",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -48,11 +48,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.keepalive",
       "nexus_mod_id": 31,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/31",
-      "latest_version": "0.1.2",
-      "latest_file_id": 1546,
-      "latest_file_name": "Keep Alive",
-      "uploaded_unix": 1775015464,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.morejewelry",
