@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-05-01T05:32:08Z",
-  "generated_by": "update-manifest.yml@eb887d2b",
+  "generated_at": "2026-05-10T05:31:12Z",
+  "generated_by": "update-manifest.yml@714629c8",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -18,10 +18,10 @@
       "plugin_guid": "p1xel8ted.sunhaven.charactereditredux",
       "nexus_mod_id": 418,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/418",
-      "latest_version": "0.1.2",
-      "latest_file_id": 1544,
+      "latest_version": "0.1.3",
+      "latest_file_id": 1609,
       "latest_file_name": "Character Edit Redux",
-      "uploaded_unix": 1775015303,
+      "uploaded_unix": 1778374763,
       "status": "ok"
     },
     {
