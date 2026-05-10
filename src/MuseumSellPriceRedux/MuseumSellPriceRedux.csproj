@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <BepInExPluginGuid>p1xel8ted.sunhaven.museumsellpriceredux</BepInExPluginGuid>
         <Version>0.1.7</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>

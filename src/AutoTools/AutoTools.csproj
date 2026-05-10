@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <BepInExPluginGuid>p1xel8ted.sunhaven.autotools</BepInExPluginGuid>
         <Version>0.2.0</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
