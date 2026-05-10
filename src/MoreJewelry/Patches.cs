@@ -121,9 +121,8 @@ public static class Patches
             gearSlot.inventory = __instance;
         }
 
-        // Add to _slots array so SetupItemIcon can find them
+        // Add to _slots array so SetupItemIcon can find them. Do NOT bump maxSlots — vanilla uses it as the stashable range (0-49); widening it breaks the chest "Same"/"All" stash buttons.
         __instance._slots = __instance._slots.Concat(GearSlots.Where(s => !__instance._slots.Contains(s))).ToArray();
-        __instance.maxSlots = __instance._slots.Length;
 
         // Restore saved items into custom slots and create their icons
         var savedItems = SingletonBehaviour<GameSave>.Instance?.CurrentSave?.characterData?.Items;

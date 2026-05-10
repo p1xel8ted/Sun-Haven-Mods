@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6 | 29 April 2026
+
+- Fixed the "Same" stash button in the chest UI not stashing matching items from your inventory
+
 ## 0.1.5 | 26 April 2026
 
 - Fixed chests becoming stuck on "Someone else is using this chest" in singleplayer after closing them
