@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-05-11T05:41:36Z",
-  "generated_by": "update-manifest.yml@7027062b",
+  "generated_at": "2026-05-12T17:02:06Z",
+  "generated_by": "update-manifest.yml@1b6cf6dd",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -38,21 +38,21 @@
       "plugin_guid": "p1xel8ted.sunhaven.easyliving",
       "nexus_mod_id": 37,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/37",
-      "latest_version": "0.2.2",
-      "latest_file_id": 1564,
-      "latest_file_name": "EasyLiving",
-      "uploaded_unix": 1775361991,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.keepalive",
       "nexus_mod_id": 31,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/31",
-      "latest_version": "0.1.2",
-      "latest_file_id": 1546,
-      "latest_file_name": "Keep Alive",
-      "uploaded_unix": 1775015464,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.morejewelry",
@@ -118,11 +118,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.uiscales",
       "nexus_mod_id": 7,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/7",
-      "latest_version": "0.2.8",
-      "latest_file_id": 1547,
-      "latest_file_name": "UIScales",
-      "uploaded_unix": 1775015489,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     }
   ]
 }
