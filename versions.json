@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-05-15T05:39:18Z",
-  "generated_by": "update-manifest.yml@94acab4c",
+  "generated_at": "2026-05-15T16:57:34Z",
+  "generated_by": "update-manifest.yml@74ff2614",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -38,11 +38,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.easyliving",
       "nexus_mod_id": 37,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/37",
-      "latest_version": "0.2.2",
-      "latest_file_id": 1564,
-      "latest_file_name": "EasyLiving",
-      "uploaded_unix": 1775361991,
-      "status": "ok"
+      "latest_version": "",
+      "latest_file_id": 0,
+      "latest_file_name": "",
+      "uploaded_unix": 0,
+      "status": "error"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.keepalive",
