@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "generated_at": "2026-05-16T16:37:05Z",
-  "generated_by": "update-manifest.yml@c2a25027",
+  "generated_at": "2026-05-17T05:35:41Z",
+  "generated_by": "update-manifest.yml@4419bb2b",
   "game_domain": "sunhaven",
   "mods": [
     {
@@ -98,11 +98,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.notimetostopandeat",
       "nexus_mod_id": 222,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/222",
-      "latest_version": "",
-      "latest_file_id": 0,
-      "latest_file_name": "",
-      "uploaded_unix": 0,
-      "status": "error"
+      "latest_version": "0.1.7",
+      "latest_file_id": 1552,
+      "latest_file_name": "No Time to Stop and Eat",
+      "uploaded_unix": 1775015628,
+      "status": "ok"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.seedify",
