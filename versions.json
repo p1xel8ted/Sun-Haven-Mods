@@ -1,18 +1,18 @@
 {
   "schema": 1,
-  "generated_at": "2026-05-19T17:19:32Z",
-  "generated_by": "update-manifest.yml@3e2e3c0d",
+  "generated_at": "2026-05-20T05:44:13Z",
+  "generated_by": "update-manifest.yml@eff72330",
   "game_domain": "sunhaven",
   "mods": [
     {
       "plugin_guid": "p1xel8ted.sunhaven.autotools",
       "nexus_mod_id": 199,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/199",
-      "latest_version": "",
-      "latest_file_id": 0,
-      "latest_file_name": "",
-      "uploaded_unix": 0,
-      "status": "error"
+      "latest_version": "0.2.0",
+      "latest_file_id": 1550,
+      "latest_file_name": "Auto Tools",
+      "uploaded_unix": 1775015573,
+      "status": "ok"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.charactereditredux",
@@ -38,11 +38,11 @@
       "plugin_guid": "p1xel8ted.sunhaven.easyliving",
       "nexus_mod_id": 37,
       "nexus_url": "https://www.nexusmods.com/sunhaven/mods/37",
-      "latest_version": "",
-      "latest_file_id": 0,
-      "latest_file_name": "",
-      "uploaded_unix": 0,
-      "status": "error"
+      "latest_version": "0.2.2",
+      "latest_file_id": 1564,
+      "latest_file_name": "EasyLiving",
+      "uploaded_unix": 1775361991,
+      "status": "ok"
     },
     {
       "plugin_guid": "p1xel8ted.sunhaven.keepalive",
