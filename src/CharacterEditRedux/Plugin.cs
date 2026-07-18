@@ -1,11 +1,10 @@
 ﻿namespace CharacterEditRedux;
 
-[BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+[BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.charactereditredux";
     private const string PluginName = "Character Edit Redux";
-    private const string PluginVersion = "0.1.2";
     internal static ManualLogSource Log { get; private set; }
 
     private void Awake()
@@ -21,7 +20,7 @@ public class Plugin : BaseUnityPlugin
                     { Order = 1, HideDefaultButton = true, CustomDrawer = OpenSaveDir }));
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
-        Logger.LogInfo($"Plugin {PluginName} is loaded! Running game version {Application.version} on {PlatformHelper.Current}.");
+        Shared.ModLogging.Init(Config, Logger);
     }
 
     private static void OpenSaveDir(ConfigEntryBase obj)

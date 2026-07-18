@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.8 | 18 July 2026
+
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.1.7 | 01 April 2026
 
 - Museum item detection now works in all languages, not just English

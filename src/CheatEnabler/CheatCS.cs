@@ -298,6 +298,16 @@ public static class CheatEnablerCommands
     }
 
     [Command]
+    public static void printallquests()
+    {
+        var allQuests = SingletonBehaviour<QuestManager>.Instance.questDictionary;
+        foreach (var quest in allQuests)
+        {
+            Utils.LogToPlayer($"{quest.Key} - {quest.Value.LocalizedQuestName}");
+        }
+    }
+
+    [Command]
     public static void printallteleportlocations()
     {
         Utils.LogToPlayer("SH, WG, NV, BSD");

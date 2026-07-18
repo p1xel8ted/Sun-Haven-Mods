@@ -38,11 +38,16 @@ public static class Const
     internal const int MainKeepsakeSlot = 60;
     internal const int MainAmuletSlot = 61;
 
-    internal const int NewRingSlotOne = 66;
-    internal const int NewRingSlotTwo = 67;
-    internal const int NewKeepsakeSlotOne = 68;
-    internal const int NewKeepsakeSlotTwo = 69;
-    internal const int NewAmuletSlotOne = 70;
-    internal const int NewAmuletSlotTwo = 71;
+    // Custom jewelry slots sit right after the game's native slots. BaseSlot is set at
+    // runtime to PlayerInventory's native slot count, so a game update that appends a
+    // native slot (e.g. the stable slot added at index 66) can't collide with ours.
+    // 66 is the historical default (native slots used to end at SELL_INDEX 65).
+    internal static int BaseSlot { get; set; } = 66;
+    internal static int NewRingSlotOne => BaseSlot;
+    internal static int NewRingSlotTwo => BaseSlot + 1;
+    internal static int NewKeepsakeSlotOne => BaseSlot + 2;
+    internal static int NewKeepsakeSlotTwo => BaseSlot + 3;
+    internal static int NewAmuletSlotOne => BaseSlot + 4;
+    internal static int NewAmuletSlotTwo => BaseSlot + 5;
 
 }

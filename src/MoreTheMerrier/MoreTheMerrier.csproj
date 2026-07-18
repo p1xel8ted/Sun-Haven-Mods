@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <BepInExPluginGuid>p1xel8ted.sunhaven.morethemerrier</BepInExPluginGuid>
-        <Version>0.1.0</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
     </PropertyGroup>

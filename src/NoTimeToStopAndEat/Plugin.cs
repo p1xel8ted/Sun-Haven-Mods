@@ -2,13 +2,12 @@
 
 namespace NoTimeToStopAndEat;
 
-[BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+[BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency("p1xel8ted.sunhaven.keepalive")]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.notimetostopandeat";
     private const string PluginName = "No Time To Stop & Eat!";
-    private const string PluginVersion = "0.1.7";
     
     internal static ConfigEntry<bool> HideFoodItemWhenEating { get; private set; }
 
@@ -16,7 +15,7 @@ public class Plugin : BaseUnityPlugin
     {
         HideFoodItemWhenEating = Config.Bind("01. General", "Hide Food Item When Eating", true, "Hide the food item when eating.");
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
-        Logger.LogInfo($"Plugin {PluginName} is loaded! Running game version {Application.version} on {PlatformHelper.Current}.");
+        Shared.ModLogging.Init(Config, Logger);
     }
     
     private void OnDestroy()

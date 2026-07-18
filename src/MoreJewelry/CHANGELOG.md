@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.7 | 18 July 2026
+
+- Fixed the extra jewelry slots greying out and locking after the recent game update. Jewelry already equipped in those slots is moved across automatically.
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.1.6 | 29 April 2026
 
 - Fixed the "Same" stash button in the chest UI not stashing matching items from your inventory

@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <BepInExPluginGuid>p1xel8ted.sunhaven.uiscales</BepInExPluginGuid>
-        <Version>0.2.8</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
         <NexusGroupId>114961</NexusGroupId>

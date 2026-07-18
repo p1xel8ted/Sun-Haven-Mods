@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3 | 18 July 2026
+
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.2.2 | 05 April 2026
 
 - Fixed a crash that could occur on the main menu when certain settings were changed during startup

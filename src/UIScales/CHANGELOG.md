@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.9 | 18 July 2026
+
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.2.8 | 01 April 2026
 
 - Fixed the day speed slider showing the wrong position when custom zoom is enabled

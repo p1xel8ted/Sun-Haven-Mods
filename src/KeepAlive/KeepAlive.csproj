@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <BepInExPluginGuid>p1xel8ted.sunhaven.keepalive</BepInExPluginGuid>
-        <Version>0.1.2</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
         <NexusGroupId>285976</NexusGroupId>

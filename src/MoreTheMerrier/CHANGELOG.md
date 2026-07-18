@@ -4,3 +4,4 @@
 
 - Initial release
 - Increases the multiplayer player limit from 8 to 100
+- Added extra logging to make bug reports easier to diagnose.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 | 18 July 2026
+
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.2.0 | 01 April 2026
 
 - New cursor-based detection mode (default) — tools now switch based on what you're aiming at instead of what you walk near

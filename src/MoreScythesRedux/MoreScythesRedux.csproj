@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <BepInExPluginGuid>p1xel8ted.sunhaven.morescythesredux</BepInExPluginGuid>
-        <Version>0.1.9</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
         <FileVersion>$(Version)</FileVersion>
         <NexusGroupId>842947</NexusGroupId>

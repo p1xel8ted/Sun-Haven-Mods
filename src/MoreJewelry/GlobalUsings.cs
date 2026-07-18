@@ -14,6 +14,5 @@ global using UnityEngine.EventSystems;
 global using Wish;
 global using System.Collections.Generic;
 global using System.Linq;
-global using JetBrains.Annotations;
 global using Button = UnityEngine.UI.Button;
 global using Shared;

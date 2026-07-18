@@ -136,40 +136,35 @@ public static class Patches
             UpdateModifiedCropInfosRoutine = null;
         }
 
-        UpdateModifiedCropInfosRoutine = Plugin.PluginInstance.StartCoroutine(SetupWhenReady());
-    }
-
-    private static IEnumerator SetupWhenReady()
-    {
-        while (!SingletonBehaviour<ItemInfoDatabase>._instance ||
-               SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos == null ||
-               SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.Count == 0)
-        {
-            WriteLog("SetupWhenReady: Waiting for ItemInfoDatabase to be ready...", LogType.Info);
-            yield return null;
-        }
-
-        var og = SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos;
-        ModifiedCropInfos = og.ToDictionary(
-            kvp => kvp.Key,
-            kvp => kvp.Value.Clone()
-        );
-
-        WriteLog($"SetupModifiedData: {ModifiedCropInfos.Count} modified crop infos", LogType.Info);
-
-
-        if (UpdateModifiedCropInfosRoutine != null)
-        {
-            Plugin.PluginInstance.StopCoroutine(UpdateModifiedCropInfosRoutine);
-            UpdateModifiedCropInfosRoutine = null;
-        }
-
         UpdateModifiedCropInfosRoutine = Plugin.PluginInstance.StartCoroutine(UpdateModifiedCropInfos());
     }
 
 
     private static IEnumerator UpdateModifiedCropInfos()
     {
+        // Wait for the game's crop database before doing anything. A scene reload
+        // can start the updaters before cropInfos exists, which used to leave our
+        // copy empty and make the overnight patch throw for every crop.
+        while (!SingletonBehaviour<ItemInfoDatabase>._instance ||
+               SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos == null ||
+               SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.Count == 0)
+        {
+            WriteLog("UpdateModifiedCropInfos: Waiting for ItemInfoDatabase to be ready...", LogType.Info);
+            yield return null;
+        }
+
+        // Build our editable copy once. Everything after this point runs without
+        // yielding, so it can't be interrupted half-cloned.
+        if (ModifiedCropInfos.Count == 0)
+        {
+            ModifiedCropInfos = SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Clone()
+            );
+
+            WriteLog($"UpdateModifiedCropInfos: cloned {ModifiedCropInfos.Count} crop infos", LogType.Info);
+        }
+
         foreach (var cropInfo in ModifiedCropInfos)
         {
             var ogData = GetOriginalSeedData(cropInfo.Key);

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.8 | 18 July 2026
+
+- Added /printallquests, which lists every quest's internal name and readable title.
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.3.7 | 01 April 2026
 
 - Updated for game version 3.0.2b

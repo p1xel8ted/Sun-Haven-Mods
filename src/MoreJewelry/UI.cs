@@ -452,7 +452,9 @@ public static class UI
     /// <para>Uses <see cref="GetOrCreateGridContainer"/> to ensure there is a container for the new slots.</para>
     /// <para>Relies on <see cref="Plugin.LOG"/> for logging errors.</para>
     /// </remarks>
-    private static readonly int[] CustomSlotNumbers =
+    // Computed on access, not cached — the slot numbers depend on Const.BaseSlot, which is
+    // only known once PlayerInventory has been set up at runtime.
+    private static int[] CustomSlotNumbers =>
     [
         Const.NewRingSlotOne, Const.NewRingSlotTwo,
         Const.NewKeepsakeSlotOne, Const.NewKeepsakeSlotTwo,
@@ -495,7 +497,7 @@ public static class UI
 
             var slotIndex = Patches.GearSlots.Count;
             newSlot.name = $"{armorType}Slot ({i})";
-            newSlot.slotNumber = slotIndex < CustomSlotNumbers.Length ? CustomSlotNumbers[slotIndex] : 66 + slotIndex;
+            newSlot.slotNumber = slotIndex < CustomSlotNumbers.Length ? CustomSlotNumbers[slotIndex] : Const.BaseSlot + slotIndex;
             Patches.GearSlots.Add(newSlot);
         }
 

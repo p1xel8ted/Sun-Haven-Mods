@@ -6,13 +6,12 @@
 /// <remarks>
 /// This class handles the setup and teardown of the plugin, including configuration settings, event subscriptions, and Harmony patching.
 /// </remarks>
-[BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+[BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency("p1xel8ted.sunhaven.keepalive")]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.morejewelry";
     private const string PluginName = "More Jewelry!";
-    private const string PluginVersion = "0.1.5";
 
     /// <summary>
     /// Gets the logging source for the plugin.
@@ -82,6 +81,6 @@ public class Plugin : BaseUnityPlugin
         };
         MakeSlotsStorageOnly = Config.Bind("01. General", "Make Slots Storage Only", false, new ConfigDescription("Make slots jewelry storage only, disabling the granting of stats.", null, new ConfigurationManagerAttributes {Order = 4}));
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
-        LOG.LogInfo($"Plugin {PluginName} is loaded!");
+        Shared.ModLogging.Init(Config, Logger);
     }
 }

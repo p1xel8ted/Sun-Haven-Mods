@@ -2,13 +2,12 @@
 
 namespace CheatEnabler;
 
-[BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+[BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency("p1xel8ted.sunhaven.keepalive")]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.cheatenabler";
     private const string PluginName = "Cheat Enabler";
-    private const string PluginVersion = "0.3.7";
     internal static ManualLogSource LOG { get; private set; }
     internal static ConfigEntry<bool> Debug { get; private set; }
     
@@ -17,7 +16,7 @@ public class Plugin : BaseUnityPlugin
         Debug = Config.Bind("01. General", "Debug", false, "Enable debug logging");
         LOG = Logger;
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
-        Logger.LogInfo($"Plugin {PluginName} is loaded! Running game version {Application.version} on {PlatformHelper.Current}.");
+        Shared.ModLogging.Init(Config, Logger);
     }
     
     private void OnDestroy()

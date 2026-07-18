@@ -135,20 +135,18 @@ public static class Utils
     /// </remarks>
     public static string GetSlotName(int slotIndex)
     {
-        return slotIndex switch
-        {
-            Const.MainRingSlot => "Main Ring Slot",
-            Const.SecondaryRingSlot => "Secondary Ring Slot",
-            Const.MainKeepsakeSlot => "Main Keepsake Slot",
-            Const.MainAmuletSlot => "Main Amulet Slot",
-            Const.NewRingSlotOne => "New Ring Slot One",
-            Const.NewRingSlotTwo => "New Ring Slot Two",
-            Const.NewKeepsakeSlotOne => "New Keepsake Slot One",
-            Const.NewKeepsakeSlotTwo => "New Keepsake Slot Two",
-            Const.NewAmuletSlotOne => "New Amulet Slot One",
-            Const.NewAmuletSlotTwo => "New Amulet Slot Two",
-            _ => "Unknown Slot"
-        };
+        // New* slots are runtime values now, so this can't be a switch expression.
+        if (slotIndex == Const.MainRingSlot) return "Main Ring Slot";
+        if (slotIndex == Const.SecondaryRingSlot) return "Secondary Ring Slot";
+        if (slotIndex == Const.MainKeepsakeSlot) return "Main Keepsake Slot";
+        if (slotIndex == Const.MainAmuletSlot) return "Main Amulet Slot";
+        if (slotIndex == Const.NewRingSlotOne) return "New Ring Slot One";
+        if (slotIndex == Const.NewRingSlotTwo) return "New Ring Slot Two";
+        if (slotIndex == Const.NewKeepsakeSlotOne) return "New Keepsake Slot One";
+        if (slotIndex == Const.NewKeepsakeSlotTwo) return "New Keepsake Slot Two";
+        if (slotIndex == Const.NewAmuletSlotOne) return "New Amulet Slot One";
+        if (slotIndex == Const.NewAmuletSlotTwo) return "New Amulet Slot Two";
+        return "Unknown Slot";
     }
     
     /// <summary>

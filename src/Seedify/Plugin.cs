@@ -1,11 +1,10 @@
 ﻿namespace Seedify;
 
-[BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+[BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.seedify";
     private const string PluginName = "Seedify";
-    private const string PluginVersion = "0.1.2";
 
     internal static ManualLogSource Log { get; private set; }
     internal static ConfigEntry<bool> DebugLogging { get; private set; }
@@ -38,6 +37,6 @@ public class Plugin : BaseUnityPlugin
         ScenePortalManager.onFinishLoadingDecorations += Patches.RunUpdaters;
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
-        Logger.LogInfo($"Plugin {PluginName} is loaded! Running game version {Application.version} on {PlatformHelper.Current}.");
+        Shared.ModLogging.Init(Config, Logger);
     }
 }

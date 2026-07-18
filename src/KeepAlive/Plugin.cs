@@ -2,12 +2,11 @@
 
 namespace KeepAlive;
 
-[BepInPlugin(PluginGuid, PluginName, PluginVersion)]
+[BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.keepalive";
     private const string PluginName = "Keep Alive";
-    private const string PluginVersion = "0.1.2";
     
     private static ManualLogSource Log { get; set; }
 
@@ -17,11 +16,10 @@ public class Plugin : BaseUnityPlugin
     {
         Log = Logger;
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
-        Logger.LogInfo($"Plugin {PluginName} is loaded! Running game version {Application.version} on {PlatformHelper.Current}.");
+        Shared.ModLogging.Init(Config, Logger);
         AddGameObjectToNoKillList("bepinex");
     }
 
-    [UsedImplicitly]
     public static void AddGameObjectToNoKillList(string gameObjectName)
     {
         var callingMethod = new StackTrace().GetFrame(1).GetMethod();

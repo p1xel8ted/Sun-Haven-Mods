@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 | 18 July 2026
+
+- Added extra logging to make bug reports easier to diagnose.
+
 ## 0.1.2 | 01 April 2026
 
 - Updated for game version 3.0.2b

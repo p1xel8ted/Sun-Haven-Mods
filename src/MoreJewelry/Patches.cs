@@ -10,7 +10,7 @@ public static class Patches
     /// <summary>
     /// A list of custom gear slots added by the mod.
     /// </summary>
-    [UsedImplicitly] public static List<Slot> GearSlots = [];
+    public static List<Slot> GearSlots = [];
 
     /// <summary>
     /// After the game loads inventory data, check if saved items exist for custom slots
@@ -43,11 +43,102 @@ public static class Patches
         }
     }
 
-    // Items is extended to 72 above so stat patches (GetStat/EquipNonVisualArmor) can see
-    // equipped jewelry before the player ever opens their inventory. _slots is only extended
-    // to 72 inside OpenMajorPanel below. If a chest is closed before then, Chest.SaveInventory
-    // → LoadPlayerInventory → LoadInventory iterates Items.Count keys and calls SetupItemIcon
-    // for slots 66-71, which don't exist in _slots yet. The original IndexOutOfRangeException
+    // Save marker: which slot base the custom jewelry is currently stored at, so existing
+    // saves can be migrated when a game update shifts the native slot count.
+    private const string SlotBaseProgressKey = "MoreJewelrySlotBase";
+
+    // Capture the game's native slot count the moment PlayerInventory finishes native setup,
+    // before we extend Items. Our custom slots start right after it, so a game update that
+    // appends a native slot (the stable slot added at index 66) can't collide with ours.
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PlayerInventory), nameof(PlayerInventory.SetUpInventoryData))]
+    private static void PlayerInventory_SetUpInventoryData(PlayerInventory __instance)
+    {
+        if (__instance.Items != null && __instance.Items.Count > 0)
+        {
+            Const.BaseSlot = __instance.Items.Count;
+        }
+    }
+
+    // Before the game loads the saved inventory, move jewelry stored at the old slot base to
+    // the current one. Without this, after the game added its stable slot at 66, saved rings/
+    // keepsakes/amulets land in the wrong slots or get read as the game's stable item.
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(PlayerInventory), nameof(PlayerInventory.LoadPlayerInventory))]
+    private static void PlayerInventory_LoadPlayerInventory_Migrate(PlayerInventory __instance)
+    {
+        try
+        {
+            // Make sure native setup has run so Const.BaseSlot is known before touching the save.
+            if (!__instance._initialized)
+            {
+                __instance.SetUpInventoryData();
+            }
+
+            MigrateJewelrySlots(Const.BaseSlot);
+        }
+        catch (Exception e)
+        {
+            Plugin.LOG.LogError($"Jewelry slot migration failed: {e}");
+        }
+    }
+
+    private static void MigrateJewelrySlots(int newBase)
+    {
+        var gameSave = SingletonBehaviour<GameSave>.Instance;
+        var items = gameSave?.CurrentSave?.characterData?.Items;
+        if (items == null) return;
+
+        var oldBase = gameSave.TryGetProgressIntCharacter(SlotBaseProgressKey, out var stored) && stored > 0
+            ? stored
+            : 66; // pre-update layout, before the base became dynamic
+
+        if (oldBase == newBase) return;
+
+        // Collect the six jewelry entries at the old base. Only move actual jewelry so a
+        // stable-slot item sitting at old index 66 is left where the game expects it.
+        var moved = new Dictionary<short, InventoryItemData>();
+        for (var offset = 0; offset < 6; offset++)
+        {
+            var oldKey = (short)(oldBase + offset);
+            if (items.TryGetValue(oldKey, out var data) && data?.Item is ArmorItem && data.Item.ID() != 0)
+            {
+                moved[(short)(newBase + offset)] = data;
+            }
+        }
+
+        if (moved.Count > 0)
+        {
+            // Remove all old jewelry keys first, then place at the new keys — safe even when
+            // the old and new ranges overlap.
+            for (var offset = 0; offset < 6; offset++)
+            {
+                var oldKey = (short)(oldBase + offset);
+                if (items.TryGetValue(oldKey, out var data) && data?.Item is ArmorItem)
+                {
+                    items.Remove(oldKey);
+                }
+            }
+
+            foreach (var kvp in moved)
+            {
+                items[kvp.Key] = kvp.Value;
+            }
+
+            // Logged unconditionally (not via Utils.Log, which is gated behind the Debug
+            // setting) - a one-time save migration is worth seeing in every log.
+            Plugin.LOG.LogInfo($"Migrated {moved.Count} jewelry item(s) from slot base {oldBase} to {newBase}.");
+        }
+
+        gameSave.SetProgressIntCharacter(SlotBaseProgressKey, newBase);
+    }
+
+    // Items is extended to cover the custom slots above so stat patches (GetStat/
+    // EquipNonVisualArmor) can see equipped jewelry before the player ever opens their
+    // inventory. _slots is only extended to match inside OpenMajorPanel below. If a chest is
+    // closed before then, Chest.SaveInventory → LoadPlayerInventory → LoadInventory iterates
+    // Items.Count keys and calls SetupItemIcon for the custom slots, which don't exist in
+    // _slots yet. The original IndexOutOfRangeException
     // aborted SaveInventory before data.inUse = false, leaving the chest permanently locked
     // and the UIHandler in a broken state. Skip out-of-range slots; OpenMajorPanel will
     // re-call SetupItemIcon for them once the UI exists.
