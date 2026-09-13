@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4 | 13 September 2026
+
+- Fixed endless harvesting: crops that don't normally regrow could be harvested over and over on the spot. They now take a day to regrow like other regrowable crops
+- Settings now apply more reliably while the game is still loading
+- Now requires Keep Alive
+
 ## 0.1.3 | 18 July 2026
 
 - Fixed a rare load-timing issue that could stop seed season, farm-type and regrow settings from applying.

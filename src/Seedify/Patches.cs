@@ -140,30 +140,31 @@ public static class Patches
     }
 
 
+    private static bool CropDatabaseReady =>
+        SingletonBehaviour<ItemInfoDatabase>._instance &&
+        SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos is { Count: > 0 };
+
     private static IEnumerator UpdateModifiedCropInfos()
     {
         // Wait for the game's crop database before doing anything. A scene reload
         // can start the updaters before cropInfos exists, which used to leave our
         // copy empty and make the overnight patch throw for every crop.
-        while (!SingletonBehaviour<ItemInfoDatabase>._instance ||
-               SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos == null ||
-               SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.Count == 0)
+        while (!CropDatabaseReady)
         {
             WriteLog("UpdateModifiedCropInfos: Waiting for ItemInfoDatabase to be ready...", LogType.Info);
             yield return null;
         }
 
-        // Build our editable copy once. Everything after this point runs without
-        // yielding, so it can't be interrupted half-cloned.
-        if (ModifiedCropInfos.Count == 0)
-        {
-            ModifiedCropInfos = SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value.Clone()
-            );
+        // Rebuild our editable copy from the live database each time. A copy taken
+        // while crops were still loading would be missing entries forever and make
+        // the overnight patch throw for those crops. Everything after this point
+        // runs without yielding, so it can't be interrupted half-cloned.
+        ModifiedCropInfos = SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value.Clone()
+        );
 
-            WriteLog($"UpdateModifiedCropInfos: cloned {ModifiedCropInfos.Count} crop infos", LogType.Info);
-        }
+        WriteLog($"UpdateModifiedCropInfos: cloned {ModifiedCropInfos.Count} crop infos", LogType.Info);
 
         foreach (var cropInfo in ModifiedCropInfos)
         {
@@ -207,11 +208,17 @@ public static class Patches
 
     private static CropInfo GetOriginalSeedData(int id)
     {
-        return SingletonBehaviour<ItemInfoDatabase>.Instance.cropInfos.FirstOrDefault(a => a.Key == id).Value;
+        if (!CropDatabaseReady) return null;
+        return SingletonBehaviour<ItemInfoDatabase>._instance.cropInfos.FirstOrDefault(a => a.Key == id).Value;
     }
 
     private static IEnumerator UpdateAllSeeds()
     {
+        while (!CropDatabaseReady)
+        {
+            yield return null;
+        }
+
         var resources = Resources.FindObjectsOfTypeAll<SeedData>().ToList();
         foreach (var seed in resources)
         {
@@ -223,6 +230,11 @@ public static class Patches
 
     private static IEnumerator UpdateAllCrops()
     {
+        while (!CropDatabaseReady)
+        {
+            yield return null;
+        }
+
         var crops = Resources.FindObjectsOfTypeAll<Crop>().ToList();
         foreach (var crop in crops)
         {
@@ -289,11 +301,21 @@ public static class Patches
 
     private static void ProcessSeed(SeedData data)
     {
+        if (!data) return;
+
         var ogData = GetOriginalSeedData(data.id);
+        if (ogData == null) return;
 
         data.farmType = Plugin.PlantSeedsInAnyFarmType.Value ? FarmType.Any : ogData.farmType;
         data.seasons = Plugin.PlantSeedsInAnySeason.Value ? AllSeasons : ogData.seasons;
         data.regrowable = Plugin.EverythingIsRegrowable.Value || ogData.regrowable;
+
+        // Crops that never regrow in the base game have a regrow time of 0, which
+        // makes a forced regrow finish instantly (endless harvest). Give them a day.
+        if (data.daysToRegrow < 1)
+        {
+            data.daysToRegrow = 1;
+        }
 
         WriteLog($"ProcessSeed (Seed): {data.name} with farmType={data.farmType} ({ogData.farmType}), seasons={string.Join(", ", data.seasons)} ({string.Join(", ", ogData.seasons)}), regrowable={data.regrowable} ({ogData.regrowable}))", LogType.Info);
     }

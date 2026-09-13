@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 | 13 September 2026
+
+- Removed a harmless "scythe creation deferred" warning on startup
+
 ## 0.2.0 | 18 July 2026
 
 - Added extra logging to make bug reports easier to diagnose.

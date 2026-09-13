@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4 | 13 September 2026
+
+- Turns on BepInEx's HideManagerGameObject setting earlier during startup if it was off, before other mods load
+
 ## 0.1.3 | 18 July 2026
 
 - Added extra logging to make bug reports easier to diagnose.

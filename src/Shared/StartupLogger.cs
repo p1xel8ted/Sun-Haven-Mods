@@ -31,6 +31,18 @@ internal static class StartupLogger
             var host = Chainloader.ManagerObject;
             if (host == null) return;
 
+            // Hide the manager during Awake rather than after the first frame, so fewer plugins
+            // are already on it when the flag change runs their OnDisable/OnEnable.
+            if (!Chainloader.ConfigHideBepInExGOs.Value)
+            {
+                var log = BepInEx.Logging.Logger.CreateLogSource("Sun Haven Mods");
+                log.LogWarning("BepInEx HideManagerGameObject was disabled - enabling it to prevent Unity event methods from failing");
+                BepInEx.Logging.Logger.Sources.Remove(log);
+                Chainloader.ConfigHideBepInExGOs.Value = true;
+                host.hideFlags = HideFlags.HideAndDontSave;
+                UnityEngine.Object.DontDestroyOnLoad(host);
+            }
+
             foreach (var existing in host.GetComponents<MonoBehaviour>())
             {
                 if (existing != null && existing.GetType().Name == nameof(StartupLoggerRunner)) return;
@@ -83,17 +95,6 @@ internal static class StartupLogger
             log.LogInfo("  Plugin configurations:");
             LogPluginConfigs(log);
             log.LogInfo("==========================================");
-
-            if (!Chainloader.ConfigHideBepInExGOs.Value)
-            {
-                log.LogWarning("  BepInEx HideManagerGameObject was disabled - enabling it to prevent Unity event methods from failing");
-                Chainloader.ConfigHideBepInExGOs.Value = true;
-                if (managerObj)
-                {
-                    managerObj.hideFlags = HideFlags.HideAndDontSave;
-                    UnityEngine.Object.DontDestroyOnLoad(managerObj);
-                }
-            }
 
             BepInEx.Logging.Logger.Sources.Remove(log);
         }

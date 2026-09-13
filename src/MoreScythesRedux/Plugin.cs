@@ -16,11 +16,13 @@ public class Plugin : BaseUnityPlugin
         {
             try
             {
+                // The item database doesn't exist on the first scene load; a later load will try again.
+                if (!Database.Instance) return;
                 ItemHandler.CreateScytheItems();
             }
             catch (Exception e)
             {
-                LOG?.LogWarning($"Scythe creation deferred: {e.Message}");
+                LOG?.LogError($"Failed to create scythes: {e}");
             }
         };
         

@@ -1,6 +1,7 @@
 ﻿namespace Seedify;
 
 [BepInPlugin(PluginGuid, PluginName, MyPluginInfo.PLUGIN_VERSION)]
+[BepInDependency("p1xel8ted.sunhaven.keepalive")]
 public class Plugin : BaseUnityPlugin
 {
     private const string PluginGuid = "p1xel8ted.sunhaven.seedify";
@@ -38,5 +39,15 @@ public class Plugin : BaseUnityPlugin
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginGuid);
         Shared.ModLogging.Init(Config, Logger);
+    }
+
+    private void OnDestroy()
+    {
+        OnDisable();
+    }
+
+    private void OnDisable()
+    {
+        Log.LogError($"Plugin {PluginName} was disabled/destroyed! Unless you are exiting the game, please install Keep Alive! - https://www.nexusmods.com/sunhaven/mods/31");
     }
 }

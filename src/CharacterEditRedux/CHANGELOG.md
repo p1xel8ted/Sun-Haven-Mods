@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5 | 13 September 2026
+
+- Now requires Keep Alive
+
 ## 0.1.4 | 18 July 2026
 
 - Added extra logging to make bug reports easier to diagnose.
