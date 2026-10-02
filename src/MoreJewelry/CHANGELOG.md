@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.8
+
+- Fixed jewelry pouch items sometimes losing their stat bonuses partway through a session.
+
 ## 0.1.7 | 18 July 2026
 
 - Fixed the extra jewelry slots greying out and locking after the recent game update. Jewelry already equipped in those slots is moved across automatically.

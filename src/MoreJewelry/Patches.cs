@@ -12,6 +12,26 @@ public static class Patches
     /// </summary>
     public static List<Slot> GearSlots = [];
 
+    private static readonly List<Slot> NoSlots = [];
+
+    // The pouch belongs to the local player only. Before the game knows who that is,
+    // any inventory is fine as long as the pouch hasn't been built yet.
+    private static bool IsLocalInventory(PlayerInventory inventory)
+    {
+        if (Player.Instance != null)
+        {
+            return Player.Instance.PlayerInventory == inventory;
+        }
+
+        return GearSlots.Count == 0;
+    }
+
+    // Used by the SetUpInventoryData transpiler so other players never get our slots.
+    public static List<Slot> GearSlotsFor(PlayerInventory inventory)
+    {
+        return IsLocalInventory(inventory) ? GearSlots : NoSlots;
+    }
+
     /// <summary>
     /// After the game loads inventory data, check if saved items exist for custom slots
     /// and restore them. The game's LoadInventory skips keys >= Items.Count, so we
@@ -54,6 +74,11 @@ public static class Patches
     [HarmonyPatch(typeof(PlayerInventory), nameof(PlayerInventory.SetUpInventoryData))]
     private static void PlayerInventory_SetUpInventoryData(PlayerInventory __instance)
     {
+        // Once the pouch exists the base is settled. Another player's inventory setting up
+        // later must not move it, or the pouch stops giving stats.
+        if (GearSlots.Count > 0) return;
+        if (!IsLocalInventory(__instance)) return;
+
         if (__instance.Items != null && __instance.Items.Count > 0)
         {
             Const.BaseSlot = __instance.Items.Count;
@@ -248,6 +273,7 @@ public static class Patches
         UI.UpdatePanelVisibility();
         UI.UpdateNavigationElements();
         UI.SlotsCreated = true;
+        Plugin.LOG.LogInfo($"Jewelry pouch ready. Slots start at {Const.BaseSlot}.");
     }
 
     [HarmonyPostfix]

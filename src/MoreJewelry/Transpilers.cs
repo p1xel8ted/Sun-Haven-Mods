@@ -21,7 +21,7 @@ public static class Transpilers
     /// This transpiler modifies the <see cref="PlayerInventory.SetUpInventoryData"/> method to add extra jewelry slots.
     /// It searches for a specific IL instruction sequence and injects additional instructions to incorporate the custom slots.
     /// What it's essential adding is the following:
-    /// List.AddRange(Patches.GearSlots);
+    /// List.AddRange(Patches.GearSlotsFor(this));
     /// List is a local variable within the method, so it's loaded with Ldloc_0.
     /// <para>Logs an informational message if the sequence is found and an error if not.</para>
     /// </remarks>
@@ -39,8 +39,9 @@ public static class Transpilers
             if (!codes[i].Calls(addRange)) continue;
             foundMatchingSequence = true;
             codes.Insert(i + 1, new CodeInstruction(OpCodes.Ldloc_0));
-            codes.Insert(i + 2, new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(Patches), nameof(Patches.GearSlots))));
-            codes.Insert(i + 3, codes[i]);
+            codes.Insert(i + 2, new CodeInstruction(OpCodes.Ldarg_0));
+            codes.Insert(i + 3, new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Patches), nameof(Patches.GearSlotsFor))));
+            codes.Insert(i + 4, codes[i]);
             break;
         }
         if (foundMatchingSequence)
